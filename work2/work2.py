@@ -40,8 +40,8 @@ def siftImageAlignment(img1,img2):
 
 
 
-img1 = cv2.imread('lena.png')
-img2 = cv2.imread('cutcut.png')
+img1 = cv2.imread('lalala.png')
+img2 = cv2.imread('opopop.png')
 while img1.shape[0] >  1000 or img1.shape[1] >1000:
     img1 = cv2.resize(img1,None, fx=0.5,fy=0.5,interpolation = cv2.INTER_AREA)
 while img2.shape[0] >  1000 or img2.shape[1] >1000:
@@ -97,8 +97,8 @@ if cv2.waitKey(2000) & 0xff == ord('q'):
     cv2.waitKey(1) 
     
 #图像拼接
-leftgray = cv2.imread('lena.png')
-rightgray = cv2.imread('cut.png')
+leftgray = cv2.imread('lalala.png')
+rightgray = cv2.imread('opopop.png')
  
 hessian=400
 surf=cv2.SURF(hessian) #将Hessian Threshold设置为400,阈值越大能检测的特征就越少
@@ -127,9 +127,20 @@ h1,w1=rightgray.shape[:2]
 shft=np.array([[1.0,0,w],[0,1.0,0],[0,0,1.0]])
 M=np.dot(shft,H[0])            #获取左边图像到右边图像的投影映射关系
 dst_corners=cv2.warpPerspective(leftgray,M,(w*2,h))#透视变换，新图像可容纳完整的两幅图
-cv2.imshow('tiledImg1',dst_corners)   #显示，第一幅图已在标准位置
+cv2.imshow('xxxx1',dst_corners)   #显示，第一幅图已在标准位置
 dst_corners[0:h,w:w*2]=rightgray  #将第二幅图放在右侧
-#cv2.imwrite('tiled.jpg',dst_corners)
+cv2.imwrite('xxx.jpg',dst_corners)
+
+
+#两种不同灰度插值方法下的输出图像
+img1 = cv2.imread(filename,0)    # 参数0为灰度，1为彩色
+img2 = cv2.imread(filename,1)
+cv2.imshow('src', img1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+cv2.imshow('src', img2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
  
 cv2.imshow('tiledImg',dst_corners)
 cv2.imshow('leftgray',leftgray)
